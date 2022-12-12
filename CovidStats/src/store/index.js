@@ -2,20 +2,23 @@ import {defineStore} from "pinia";
 import {computed, ref} from "vue";
 
 export const useCovidDataStore = defineStore('covidData', () => {
-    let data = null
-
-    let loaded = ref(false)
+    const data = ref(null)
+    const loaded = ref(false)
+    const selectedCountry = ref('Turkey')
 
     function setData(veri) {
-        data = veri
+        data.value = veri
     }
-
+    function setCountry(ulke) {
+        selectedCountry.value = ulke
+    }
     function setLoaded() {
         loaded.value = !loaded.value
 
     }
 
-    const getData = computed(() => data)
+    const getData = computed(() => data.value)
     const getLoaded = computed(() => loaded)
-    return {data, setData, getData, setLoaded, getLoaded, loaded}
+    const getSelectedCountry = computed(()=>selectedCountry)
+    return {data, setData, getData, setLoaded, getLoaded, loaded,selectedCountry,setCountry,getSelectedCountry}
 })
