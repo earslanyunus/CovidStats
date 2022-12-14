@@ -1,6 +1,7 @@
 import axios from "axios";
 import {format, subDays} from "date-fns";
 import {tr} from "date-fns/locale"
+import Papa from "papaparse"
 
 function csvJSON(csv) {
 
@@ -62,7 +63,7 @@ const getPastDays = (currentdate,datecount) => {
 }
 
 
-const getFullData = async (days) => {
+const getFullData = async () => {
     const data = await axios.get('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv')
     const veri = await csvJSON(data.data)
     return veri
@@ -73,5 +74,6 @@ const getFullData = async (days) => {
 // const filterDateandCountry = (array,country)=>{
 //     array.forEach(elm=>)
 // }
+
 
 export {getFullData,getPastDays,Currentdate,SelectedDays,TurConvertedDays,ConvertedDays,TurkeyDate}
