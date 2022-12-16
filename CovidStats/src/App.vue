@@ -5,7 +5,6 @@ import TheNavbar from "./components/TheNavbar.vue";
 import TheFooter from "./components/TheFooter.vue";
 import {useCovidDataStore} from "./store/index.js";
 const store = useCovidDataStore()
-console.log(store.getLoaded)
 
 </script>
 <template>

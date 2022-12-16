@@ -1,6 +1,6 @@
 <script setup>
 import {useCovidDataStore} from "../store/index.js";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import ApexCharts from 'apexcharts';
 import {tr} from "date-fns/locale";
 import TheNavbar from "../components/TheNavbar.vue";
@@ -10,11 +10,11 @@ const store = useCovidDataStore()
 // APEX CHARTS
 const series = [{
   name: 'Vaka',
-  data: store?.getData
+  data: []
 },
   {
     name: 'Ölüm',
-    data: covidVeriOlum.value
+    data: []
   }]
 const chartOptions = {
   chart: {
@@ -33,7 +33,7 @@ const chartOptions = {
   xaxis: {
     tickPlacement: 'on',
     type: 'category',
-    categories: TurConvertedTableData.value.reverse()
+    categories: []
   },
   tooltip: {
     x: {
@@ -43,6 +43,7 @@ const chartOptions = {
 
 }
 // APEX CHARTS
+console.log(store.getSelectedCountry)
 
 </script>
 

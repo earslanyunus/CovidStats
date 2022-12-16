@@ -4,23 +4,27 @@ import {computed, ref} from "vue";
 export const useCovidDataStore = defineStore('covidData', () => {
     let data = null
     const loaded = ref(false)
-    const selectedCountry = ref('Turkey')
+    const CountryList = ref('Turkey')
+    const SelectedCountry = ref(null)
 
     function setData(veri) {
         data = veri
     }
-    function setCountry(ulke) {
-        selectedCountry.value = ulke
+    function setCountryList(ulke) {
+        CountryList.value = ulke
     }
     function setLoaded() {
         loaded.value = !loaded.value
 
     }
-
+    function setSelectedCountry(country) {
+        SelectedCountry.value = country
+    }
     const getData = computed(() => data)
     const getLoaded = computed(() => loaded)
-    const getSelectedCountry = computed(()=>selectedCountry)
-    return {data, setData, getData, setLoaded, getLoaded, loaded,selectedCountry,setCountry,getSelectedCountry}
+    const getCountryList = computed(()=>CountryList)
+    const getSelectedCountry = computed(()=>SelectedCountry)
+    return {data,SelectedCountry, setData, getData, setLoaded, getLoaded,  CountryList, setCountryList,getSelectedCountry, getCountryList, setSelectedCountry}
 })
 
 

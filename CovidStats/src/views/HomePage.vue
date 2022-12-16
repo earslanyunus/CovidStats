@@ -67,6 +67,8 @@ const store = useCovidDataStore()
   Papa.parse("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv", {
     download: true,
     header: true,
+      worker: true,
+
     complete: function(results) {
       const groupedByLocation = results.data.reduce((acc, obj) => {
         if (!acc[obj.location]) {
@@ -75,6 +77,7 @@ const store = useCovidDataStore()
         acc[obj.location].push(obj);
         return acc;
       }, {});
+      store.setCountryList(Object.keys(groupedByLocation))
       store.setData(groupedByLocation)
       store.setLoaded()
 
