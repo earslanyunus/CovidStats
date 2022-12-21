@@ -3,11 +3,13 @@ import vSelect from 'vue-select'
 import "vue-select/dist/vue-select.css";
 
 import {useCovidDataStore} from "../store/index.js";
-import {ref, watch} from "vue";
+import {provide, ref, watch} from "vue";
 const store = useCovidDataStore()
 const countries = store.getCountryList.value
 function setSelected(value){
+  console.log('navbar',store.getSelectedCountry.value)
   store.setSelectedCountry(value)
+  console.log('navbar after',store.getSelectedCountry.value)
 }
 </script>
 <template>
@@ -21,7 +23,7 @@ function setSelected(value){
       <router-link class="font-bold text-sm mr-6" :to="{name:'VaccinePage'}">Aşı Verileri</router-link>
     </div>
     <div>
-      <v-select class="w-56"  v-if="store.getLoaded.value" :options="store.getCountryList.value" :v-model="store.SelectedCountry" @option:selecting="setSelected"></v-select>
+      <v-select class="w-56"  v-if="store.getLoaded.value" :options="store.getCountryList.value" :v-model="store.SelectedCountry" @option:selecting="setSelected" placeholder="Lutfen Ulke Seciniz"></v-select>
     </div>
   </nav>
 </template>

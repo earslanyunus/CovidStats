@@ -8,8 +8,8 @@ import router from "./router/index.js";
 
 const pinia = createPinia()
 const app =createApp(App)
+app.use(VueApexCharts)
 app.use(router)
 app.use(pinia)
 // app.use(store)
-app.use(VueApexCharts)
 app.mount('#app')

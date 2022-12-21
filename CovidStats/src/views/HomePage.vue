@@ -6,9 +6,9 @@ import Papa from "papaparse";
 //   ConvertedDays,
 //   getFullData,
 //   getPastDays,
-//   TurConvertedDays,
+//   ConvertedDaysForTr,
 //   TurkeyDate
-// } from "../composables/CovidDataFunctions.js";
+// } from "../composables/DateFunctions.js";
 // import {ref} from "vue";
 import {useCovidDataStore} from "../store/index.js";
 //
@@ -23,7 +23,7 @@ import {useCovidDataStore} from "../store/index.js";
 // }
 // getPastDays(TurkeyDate, 14)
 // const TurConvertedTableData = ref([])
-// TurConvertedDays.forEach((elm) => {
+// ConvertedDaysForTr.forEach((elm) => {
 //   TurConvertedTableData.value.push(elm.slice(0, 13))
 // })
 // const VakaSayi = ref(null)

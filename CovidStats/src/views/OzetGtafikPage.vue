@@ -1,20 +1,52 @@
 <script setup>
 import {useCovidDataStore} from "../store/index.js";
-import {ref, watch} from "vue";
-import ApexCharts from 'apexcharts';
+import {inject, ref, watch} from "vue";
 import {tr} from "date-fns/locale";
 import TheNavbar from "../components/TheNavbar.vue";
 const store = useCovidDataStore()
 
+const ulke = store.getSelectedCountry
+watch(ulke,(value, oldValue, onCleanup)=>{
+  if (value !==oldValue){
+   const StoreSelectedCountry = store.getSelectedCountry.value
+  firstLoad(StoreSelectedCountry)}
+
+})
+import {Currentdate, getPastDays, ConvertedDaysForTr, TurkeyDate,ConvertedDays,OriginalJsDates} from "../composables/DateFunctions.js";
+import {Store} from "vuex";
+function sumArray(arr) {
+  let sum = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    sum += Number(arr[i])
+  }
+
+  return sum;
+}
+getPastDays(Currentdate, 14)
+const TurConvertedTableData = ref([])
+ConvertedDaysForTr.forEach((elm) => {
+  TurConvertedTableData.value.push(elm.slice(0, 13))
+})
+
+const VakaSayi = ref(null)
+const OlumSayi = ref(null)
+const covidVeriVaka = ref([])
+const covidVeriOlum = ref([])
+const covidToplamVaka = ref([])
+const covidToplamOlum = ref([])
+
+
+const isLoaded = store.getLoaded
 
 // APEX CHARTS
 const series = [{
   name: 'Vaka',
-  data: []
+  data: covidVeriVaka
 },
   {
     name: 'Ölüm',
-    data: []
+    data: covidVeriOlum
   }]
 const chartOptions = {
   chart: {
@@ -33,7 +65,7 @@ const chartOptions = {
   xaxis: {
     tickPlacement: 'on',
     type: 'category',
-    categories: []
+    categories:[]
   },
   tooltip: {
     x: {
@@ -43,12 +75,42 @@ const chartOptions = {
 
 }
 // APEX CHARTS
-console.log(store.getSelectedCountry)
+
+
+const firstLoad = (country)=>{
+  covidVeriVaka.value=[]
+  covidVeriOlum.value=[]
+  const SelectedCountryArray = store.getData[country]
+  ConvertedDays.forEach((tarih) => {
+    SelectedCountryArray.forEach(elm => {
+      if (elm.date === tarih && elm.location === store.getSelectedCountry.value) {
+        covidVeriVaka.value.push(Number(elm.new_cases))
+        covidVeriOlum.value.push(Number(elm.new_deaths))
+        covidToplamOlum.value.push(Number(elm.total_deaths))
+        covidToplamVaka.value.push(Number(elm.total_cases))
+
+      }
+
+    })
+
+  })
+  covidVeriVaka.value.reverse()
+  covidVeriOlum.value.reverse()
+  covidToplamVaka.value.reverse()
+  covidToplamOlum.value.reverse()
+  VakaSayi.value = sumArray(covidVeriVaka.value)
+  OlumSayi.value = sumArray(covidVeriOlum.value)
+}
+firstLoad(store.getSelectedCountry.value)
+
 
 </script>
 
 <template>
   <div class="container mx-auto mt-24">
+
+
+
 
   <div v-if="isLoaded">
     <h3 class="font-bold text-2xl">Son 14 Gün Verileri</h3>
@@ -84,7 +146,6 @@ console.log(store.getSelectedCountry)
         </div>
       </div>
     </div>
-    <!--    <button @click="updateData('Germany')">Alamanya Veri</button>-->
   </div>
   </div>
 

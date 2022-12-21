@@ -5,7 +5,7 @@ export const useCovidDataStore = defineStore('covidData', () => {
     let data = null
     const loaded = ref(false)
     const CountryList = ref('Turkey')
-    const SelectedCountry = ref(null)
+    const SelectedCountry = ref('')
 
     function setData(veri) {
         data = veri
