@@ -12,7 +12,7 @@
 
 - Özet Sayfası
 - [ ] Asi verilerini ekle
-  - [ ] Asilama sureci tamamlananar
+  - [x] Asilama sureci tamamlananlar
   - [ ] En az 1 doz asilananlar
   - [ ] Toplam doz sayisi
 

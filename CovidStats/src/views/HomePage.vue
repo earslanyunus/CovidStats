@@ -1,6 +1,6 @@
 <script setup>
 import Papa from "papaparse";
-// import store from "../store/index.js";
+/*// import store from "../store/index.js";
 // store.commit('setData',null)
 // import {
 //   ConvertedDays,
@@ -9,9 +9,10 @@ import Papa from "papaparse";
 //   ConvertedDaysForTr,
 //   TurkeyDate
 // } from "../composables/DateFunctions.js";
-// import {ref} from "vue";
-import {useCovidDataStore} from "../store/index.js";
-//
+// import {ref} from "vue";*/
+import {useCovidDataStore,VaccineStore} from "../store/index.js";
+import {ref} from "vue";
+/*//
 // function sumArray(arr) {
 //   let sum = 0;
 //
@@ -31,38 +32,38 @@ import {useCovidDataStore} from "../store/index.js";
 // const covidVeriVaka = ref([])
 // const covidVeriOlum = ref([])
 // const covidToplamVaka = ref([])
-// const covidToplamOlum = ref([])
+// const covidToplamOlum = ref([])*/
 const store = useCovidDataStore()
-// const veri = async (ulke) => {
-//   const data = await getFullData()
-//
-//   if (data) {
-//
-//
-//     ConvertedDays.forEach((tarih) => {
-//       data.forEach(elm => {
-//         if (elm.date === tarih && elm.location === ulke) {
-//           console.log(elm)
-//           covidVeriVaka.value.push(elm.new_cases)
-//           covidVeriOlum.value.push(elm.new_deaths)
-//           covidToplamVaka.value.push(elm.total_cases)
-//           covidToplamOlum.value.push(elm.total_deaths)
-//         }
-//       })
-//
-//     })
-//     covidVeriVaka.value.reverse()
-//     covidVeriOlum.value.reverse()
-//     VakaSayi.value = sumArray(covidVeriVaka.value)
-//     OlumSayi.value = sumArray(covidVeriOlum.value)
-//     store.setData(data)
-//     store.setLoaded()
-//   }
-// }
-//
-// const isLoaded = store.getLoaded
-// veri('Turkey')
+const Vaccine = VaccineStore()
+/*const veri = async (ulke) => {
+  const data = await getFullData()
 
+  if (data) {
+
+
+    ConvertedDays.forEach((tarih) => {
+      data.forEach(elm => {
+        if (elm.date === tarih && elm.location === ulke) {
+          console.log(elm)
+          covidVeriVaka.value.push(elm.new_cases)
+          covidVeriOlum.value.push(elm.new_deaths)
+          covidToplamVaka.value.push(elm.total_cases)
+          covidToplamOlum.value.push(elm.total_deaths)
+        }
+      })
+
+    })
+    covidVeriVaka.value.reverse()
+    covidVeriOlum.value.reverse()
+    VakaSayi.value = sumArray(covidVeriVaka.value)
+    OlumSayi.value = sumArray(covidVeriOlum.value)
+    store.setData(data)
+    store.setLoaded()
+  }
+}
+
+const isLoaded = store.getLoaded
+veri('Turkey')*/
 
   Papa.parse("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv", {
     download: true,
@@ -81,10 +82,26 @@ const store = useCovidDataStore()
       store.setData(groupedByLocation)
       store.setLoaded()
 
+
     }
 
   })
 
+Papa.parse("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv",{
+  download: true,
+  header: true,
+  worker:true,
+  complete: function(results){
+    const asiveri = results.data.reduce((acc, obj) => {
+      if (!acc[obj.location]) {
+        acc[obj.location] = [];
+      }
+      acc[obj.location].push(obj);
+      return acc;
+    }, {});
+    Vaccine.setVaccineData(asiveri)
+  }
+})
 </script>
 
 <template>

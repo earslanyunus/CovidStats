@@ -10,6 +10,7 @@ export const useCovidDataStore = defineStore('covidData', () => {
     function setData(veri) {
         data = veri
     }
+
     function setCountryList(ulke) {
         CountryList.value = ulke
     }
@@ -20,6 +21,7 @@ export const useCovidDataStore = defineStore('covidData', () => {
     function setSelectedCountry(country) {
         SelectedCountry.value = country
     }
+
     const getData = computed(() => data)
     const getLoaded = computed(() => loaded)
     const getCountryList = computed(()=>CountryList)
@@ -27,6 +29,17 @@ export const useCovidDataStore = defineStore('covidData', () => {
     return {data,SelectedCountry, setData, getData, setLoaded, getLoaded,  CountryList, setCountryList,getSelectedCountry, getCountryList, setSelectedCountry}
 })
 
+export const VaccineStore = defineStore('vaccineData', () => {
+    let VaccineData = null
+
+    function setVaccineData(data) {
+        VaccineData = data
+    }
+
+    const getVaccineData = computed(()=>VaccineData)
+    return {VaccineData, setVaccineData, getVaccineData}
+
+})
 
 // import {createStore} from "vuex";
 // import createPersistedState from "vuex-persistedstate";
