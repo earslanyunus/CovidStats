@@ -7,9 +7,7 @@ import {provide, ref, watch} from "vue";
 const store = useCovidDataStore()
 const countries = store.getCountryList.value
 function setSelected(value){
-  console.log('navbar',store.getSelectedCountry.value)
   store.setSelectedCountry(value)
-  console.log('navbar after',store.getSelectedCountry.value)
 }
 </script>
 <template>

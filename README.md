@@ -11,10 +11,10 @@
 
 
 - Özet Sayfası
-- [ ] Asi verilerini ekle
+- [x] Asi verilerini ekle
   - [x] Asilama sureci tamamlananlar
-  - [ ] En az 1 doz asilananlar
-  - [ ] Toplam doz sayisi
+  - [x] En az 1 doz asilananlar
+  - [x] Toplam doz sayisi
 
 
 
