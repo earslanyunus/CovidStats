@@ -19,9 +19,9 @@
 
 
 - Detay Sayfasi
-- [ ] Grafikler eklenecek
-  - [ ] Vaka Tablosu
-  - [ ] Olum Tablosu
+- [x] Grafikler eklenecek
+  - [x] Vaka Tablosu
+  - [x] Olum Tablosu
 
 
 - Asi Sayfasi

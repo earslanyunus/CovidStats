@@ -1,6 +1,7 @@
 import {createPinia} from "pinia";
 import { createApp } from 'vue'
 import './style.css'
+import '@vuepic/vue-datepicker/dist/main.css'
 import App from './App.vue'
 import VueApexCharts from "vue3-apexcharts";
 import router from "./router/index.js";

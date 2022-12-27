@@ -1,6 +1,5 @@
 <script setup>
-import {DotLoader} from "vue-spinner/src"
-
+import DotLoader from "vue-spinner/src/DotLoader.vue"
 import TheNavbar from "./components/TheNavbar.vue";
 import TheFooter from "./components/TheFooter.vue";
 import {useCovidDataStore} from "./store/index.js";

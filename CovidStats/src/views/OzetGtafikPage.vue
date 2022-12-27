@@ -35,7 +35,7 @@ function sumArray(arr) {
 getPastDays(Currentdate, 14)
 const TurConvertedTableData = ref([])
 ConvertedDaysForTr.forEach((elm) => {
-  TurConvertedTableData.value.push(elm.slice(0, 13))
+  TurConvertedTableData.value.push(elm.slice(0, 14))
 })
 
 const VakaSayi = ref(null)
@@ -76,7 +76,7 @@ const chartOptions = {
   xaxis: {
     tickPlacement: 'on',
     type: 'category',
-    categories: []
+    categories: TurConvertedTableData.value
   },
   tooltip: {
     x: {
@@ -165,7 +165,6 @@ function numberWithCommas(x) {
         </div>
       </div>
       <div id="myChart"></div>
-      <v-chart :option="options"/>
             <apexchart type="area" width="100%" height="350" :options="chartOptions" :series="series"></apexchart>
       <div class="flex flex-col">
         <div class="flex justify-between items-center w-full  border-b-2 pb-2">
