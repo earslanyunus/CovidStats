@@ -27,7 +27,7 @@
 - Asi Sayfasi
   - [ ] Grafikler
     - [ ] Asilama Sureci Tamamlananlar
-    - [ ] Asilanan insan sayisi
+    - [x] Asilanan insan sayisi
     - [ ] Toplam doz sayisi
     - [ ] Hatirlatma dozu sayisi
 

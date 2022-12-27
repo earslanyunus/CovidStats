@@ -36,7 +36,7 @@ ConvertedDaysForTr.forEach((elm) => {
 
 
 const vaccineVeri = ref([])
-const LastData = ref()
+const dailyPeopleVaccinatedFirstDose = ref([])
 const selectedDates = ref([])
 
 
@@ -45,6 +45,7 @@ const isLoaded = store.getLoaded
 
 const firstLoad = (country) => {
   vaccineVeri.value = []
+  dailyPeopleVaccinatedFirstDose.value = []
   const SelectedCountryArray = store.getData[country]
   const SelectedCountryVaccineArray = Vaccine.getVaccineData[country]
   SelectedCountryVaccineArray.sort((a, b) => {
@@ -56,12 +57,16 @@ const firstLoad = (country) => {
 
     SelectedCountryVaccineArray.forEach((elm, i, array) => {
       if (elm.location === store.getSelectedCountry.value&&elm.date == tarih) {
+        console.log(elm)
         vaccineVeri.value.push(elm)
+
 
 
       }
     })
-
+    vaccineVeri.value.forEach(elm=>{
+      dailyPeopleVaccinatedFirstDose.value.push(elm.daily_people_vaccinated)
+    })
   })
 
 
@@ -123,9 +128,9 @@ watch(ulke, (value, oldValue, onCleanup) => {
 })
 
 // APEX CHARTS
-/*const vakaSeries = [{
+const vakaSeries = [{
   name: 'Vaka',
-  data: covidVeriVaka
+  data: dailyPeopleVaccinatedFirstDose
 }]
 const vakaChartOptions = {
   chart: {
@@ -146,33 +151,10 @@ const vakaChartOptions = {
     type: 'category',
     categories: selectedDates
   },
+  colors:["#9321cc"]
 
 }
-const olumSeries = [{
-  name: 'Ölüm',
-  data: covidVeriOlum
-}]
-const olumChartOptions = {
-  chart: {
-    height: 350,
-    type: 'area'
-  },
-  dataLabels: {
-    enabled: false
-  },
-  stroke: {
-    curve: 'smooth'
-  },
-  legend: {
-    position: 'top'
-  },
-  xaxis: {
-    tickPlacement: 'on',
-    type: 'category',
-    categories: selectedDates
-  },
-  colors:['#EF5858', '#ae3f3f']
-}*/
+
 // // APEX CHARTS
 
 
@@ -183,29 +165,29 @@ const olumChartOptions = {
                 :enable-time-picker="false" class="w-1/3 "/>
 
 
-<!--    <div class="w-full mt-8">-->
-<!--      <div class="flex justify-between">-->
-<!--        <div>-->
-<!--          <h3 class="font-bold text-2xl">Vaka</h3>-->
-<!--          <p class="font-semibold text-md text-gray-300">{{ store.getSelectedCountry.value.replace(/'/g, '') }}</p>-->
-<!--        </div>-->
+    <div class="w-full mt-8">
+      <div class="flex justify-between">
+        <div>
+          <h3 class="font-bold text-2xl">Ilk Asi Dozunu Alan Insan Sayisi</h3>
+          <p class="font-semibold text-md text-gray-300">{{ store.getSelectedCountry.value.replace(/'/g, '') }}</p>
+        </div>
 
-<!--        <div class="flex gap-8">-->
-<!--          <div class="flex text-center flex-col">-->
-<!--            <h4 class="font-medium">Mart 2020 Itibariyle</h4>-->
-<!--            <p class="text-blue-500">{{ covidToplamVaka[covidVeriVaka.length - 1]}}</p>-->
-<!--          </div>-->
-<!--          <div class="flex text-center flex-col">-->
-<!--            <h4 class="font-medium">Tarih Araliginda</h4>-->
-<!--            <p class="text-blue-500">{{ VakaSayi.toLocaleString() }}</p>-->
-<!--          </div>-->
+        <div class="flex gap-8">
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Mart 2020 Itibariyle</h4>
+            <p class="text-purple-500">{{vaccineVeri[vaccineVeri.length-1]?.people_vaccinated}}</p>
+          </div>
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Tarih Araliginda</h4>
+            <p class="text-purple-500">{{ sumArray(dailyPeopleVaccinatedFirstDose) }}</p>
+          </div>
 
-<!--        </div>-->
-<!--      </div>-->
-<!--      <apexchart type="area" width="100%" height="350" :options="vakaChartOptions" :series="vakaSeries"-->
-<!--                 :datetimeUTC=false></apexchart>-->
-<!--    </div>-->
+        </div>
+      </div>
 
+      <apexchart type="area" width="100%" height="350" :options="vakaChartOptions" :series="vakaSeries"
+                 :datetimeUTC=false></apexchart>
+    </div>
 
 
   </div>
