@@ -38,6 +38,8 @@ ConvertedDaysForTr.forEach((elm) => {
 const vaccineVeri = ref([])
 const dailyPeopleVaccinatedFirstDose = ref([])
 const dailyNewVaccinations = ref([])
+const peopleCountFullyVaccinated = ref([])
+const totalBoosterDoses = ref([])
 const totalDoses = ref([])
 const selectedDates = ref([])
 
@@ -48,6 +50,11 @@ const isLoaded = store.getLoaded
 const firstLoad = (country) => {
   vaccineVeri.value = []
   dailyPeopleVaccinatedFirstDose.value = []
+  dailyNewVaccinations.value = []
+  peopleCountFullyVaccinated.value = []
+  totalBoosterDoses.value = []
+  totalDoses.value = []
+
   const SelectedCountryArray = store.getData[country]
   const SelectedCountryVaccineArray = Vaccine.getVaccineData[country]
   SelectedCountryVaccineArray.sort((a, b) => {
@@ -70,6 +77,8 @@ const firstLoad = (country) => {
       dailyPeopleVaccinatedFirstDose.value.push(elm.daily_people_vaccinated)
       totalDoses.value.push(elm.total_vaccinations)
       dailyNewVaccinations.value.push(elm.daily_vaccinations)
+      peopleCountFullyVaccinated.value.push(elm.people_fully_vaccinated)
+      totalBoosterDoses.value.push(elm.total_boosters)
     })
   })
 
@@ -136,6 +145,19 @@ const firstDoseSeries = [{
   name: 'Ilk Doz',
   data: dailyPeopleVaccinatedFirstDose
 }]
+const totalVaccinationSeries = [{
+  name: 'Toplam Doz',
+  data: totalDoses
+}]
+const totalPeopleVaccinatedSeries = [{
+  name: 'Toplam Doz',
+  data: peopleCountFullyVaccinated
+}]
+const totalBoosterSeries = [{
+  name: 'Toplam Doz',
+  data: totalBoosterDoses
+}]
+
 const vaccinationChartOption = {
   chart: {
     height: 350,
@@ -158,10 +180,6 @@ const vaccinationChartOption = {
   colors:["#9321cc"]
 
 }
-const totalVaccinationSeries = [{
-  name: 'Toplam Doz',
-  data: totalDoses
-}]
 
 // // APEX CHARTS
 
@@ -173,6 +191,29 @@ const totalVaccinationSeries = [{
                 :enable-time-picker="false" class="w-1/3 "/>
 
 
+    <div class="w-full mt-8">
+      <div class="flex justify-between">
+        <div>
+          <h3 class="font-bold text-2xl">Asilama Sureci Tamamlanan Insan Sayisi</h3>
+          <p class="font-semibold text-md text-gray-300">{{ store.getSelectedCountry.value.replace(/'/g, '') }}</p>
+        </div>
+
+        <div class="flex gap-8">
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Mart 2020 Itibariyle</h4>
+            <p class="text-purple-500">{{vaccineVeri[vaccineVeri.length-1]?.people_fully_vaccinated}}</p>
+          </div>
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Tarih Araliginda</h4>
+            <p class="text-purple-500">{{ (vaccineVeri[vaccineVeri.length-1]?.people_fully_vaccinated)-(vaccineVeri[0]?.people_fully_vaccinated) }}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <apexchart type="area" width="100%" height="350" :options="vaccinationChartOption" :series="totalPeopleVaccinatedSeries"
+                 :datetimeUTC=false></apexchart>
+    </div>
     <div class="w-full mt-8">
       <div class="flex justify-between">
         <div>
@@ -210,13 +251,36 @@ const totalVaccinationSeries = [{
           </div>
           <div class="flex text-center flex-col">
             <h4 class="font-medium">Tarih Araliginda</h4>
-            <p class="text-purple-500">{{ sumArray(dailyNewVaccinations) }}</p>
+            <p class="text-purple-500">{{ (vaccineVeri[vaccineVeri.length-1]?.total_vaccinations)-(vaccineVeri[0]?.total_vaccinations) }}</p>
           </div>
 
         </div>
       </div>
 
       <apexchart type="area" width="100%" height="350" :options="vaccinationChartOption" :series="totalVaccinationSeries"
+                 :datetimeUTC=false></apexchart>
+    </div>
+    <div class="w-full mt-8">
+      <div class="flex justify-between">
+        <div>
+          <h3 class="font-bold text-2xl">Booster Doz Sayisi</h3>
+          <p class="font-semibold text-md text-gray-300">{{ store.getSelectedCountry.value.replace(/'/g, '') }}</p>
+        </div>
+
+        <div class="flex gap-8">
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Mart 2020 Itibariyle</h4>
+            <p class="text-purple-500">{{vaccineVeri[vaccineVeri.length-1]?.total_vaccinations}}</p>
+          </div>
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Tarih Araliginda</h4>
+            <p class="text-purple-500">{{ (vaccineVeri[vaccineVeri.length-1]?.total_boosters)-(vaccineVeri[0]?.total_boosters) }}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <apexchart type="area" width="100%" height="350" :options="vaccinationChartOption" :series="totalBoosterSeries"
                  :datetimeUTC=false></apexchart>
     </div>
 

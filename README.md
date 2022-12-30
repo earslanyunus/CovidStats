@@ -5,7 +5,8 @@
 
 - Genel
 - [ ] Chart paketi guncelleme(Apache ECharts)
-- [ ] Tarih Secimi Eklenecek(Detay sayfasi-Asi Sayfasi)
+- [x] Tarih Secimi Eklenecek(Detay sayfasi-Asi Sayfasi)
+  - [ ] Belirli Tarih Araliklari Eklenecek
 
 
 
@@ -25,9 +26,9 @@
 
 
 - Asi Sayfasi
-  - [ ] Grafikler
-    - [ ] Asilama Sureci Tamamlananlar
+  - [x] Grafikler
+    - [x] Asilama Sureci Tamamlananlar
     - [x] Asilanan insan sayisi
     - [x] Toplam doz sayisi
-    - [ ] Hatirlatma dozu sayisi
+    - [x] Hatirlatma dozu sayisi
 
