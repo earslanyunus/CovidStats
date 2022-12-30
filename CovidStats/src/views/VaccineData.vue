@@ -37,6 +37,8 @@ ConvertedDaysForTr.forEach((elm) => {
 
 const vaccineVeri = ref([])
 const dailyPeopleVaccinatedFirstDose = ref([])
+const dailyNewVaccinations = ref([])
+const totalDoses = ref([])
 const selectedDates = ref([])
 
 
@@ -66,6 +68,8 @@ const firstLoad = (country) => {
     })
     vaccineVeri.value.forEach(elm=>{
       dailyPeopleVaccinatedFirstDose.value.push(elm.daily_people_vaccinated)
+      totalDoses.value.push(elm.total_vaccinations)
+      dailyNewVaccinations.value.push(elm.daily_vaccinations)
     })
   })
 
@@ -128,11 +132,11 @@ watch(ulke, (value, oldValue, onCleanup) => {
 })
 
 // APEX CHARTS
-const vakaSeries = [{
-  name: 'Vaka',
+const firstDoseSeries = [{
+  name: 'Ilk Doz',
   data: dailyPeopleVaccinatedFirstDose
 }]
-const vakaChartOptions = {
+const vaccinationChartOption = {
   chart: {
     height: 350,
     type: 'area'
@@ -154,6 +158,10 @@ const vakaChartOptions = {
   colors:["#9321cc"]
 
 }
+const totalVaccinationSeries = [{
+  name: 'Toplam Doz',
+  data: totalDoses
+}]
 
 // // APEX CHARTS
 
@@ -185,7 +193,30 @@ const vakaChartOptions = {
         </div>
       </div>
 
-      <apexchart type="area" width="100%" height="350" :options="vakaChartOptions" :series="vakaSeries"
+      <apexchart type="area" width="100%" height="350" :options="vaccinationChartOption" :series="firstDoseSeries"
+                 :datetimeUTC=false></apexchart>
+    </div>
+    <div class="w-full mt-8">
+      <div class="flex justify-between">
+        <div>
+          <h3 class="font-bold text-2xl">Toplam Doz Sayisi</h3>
+          <p class="font-semibold text-md text-gray-300">{{ store.getSelectedCountry.value.replace(/'/g, '') }}</p>
+        </div>
+
+        <div class="flex gap-8">
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Mart 2020 Itibariyle</h4>
+            <p class="text-purple-500">{{vaccineVeri[vaccineVeri.length-1]?.total_vaccinations}}</p>
+          </div>
+          <div class="flex text-center flex-col">
+            <h4 class="font-medium">Tarih Araliginda</h4>
+            <p class="text-purple-500">{{ sumArray(dailyNewVaccinations) }}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <apexchart type="area" width="100%" height="350" :options="vaccinationChartOption" :series="totalVaccinationSeries"
                  :datetimeUTC=false></apexchart>
     </div>
 

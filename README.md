@@ -28,6 +28,6 @@
   - [ ] Grafikler
     - [ ] Asilama Sureci Tamamlananlar
     - [x] Asilanan insan sayisi
-    - [ ] Toplam doz sayisi
+    - [x] Toplam doz sayisi
     - [ ] Hatirlatma dozu sayisi
 
