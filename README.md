@@ -7,7 +7,8 @@
 - [ ] Chart paketi guncelleme(Apache ECharts)
 - [x] Tarih Secimi Eklenecek(Detay sayfasi-Asi Sayfasi)
   - [ ] Belirli Tarih Araliklari Eklenecek
-
+-[ ] Grafiklerin x eksenine tarihler eklenecek
+- [ ] Ozet Grafik x ekseni, eski tarihten yeni tarihe seklinde guncellenecek
 
 
 
