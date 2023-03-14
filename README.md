@@ -1,4 +1,7 @@
 # CovidStats
+> Bu proje client tarafinda cok fazla veri cektigi icin csr olarak gelistirme yapmanin mantikli olmadigina karar verdim. SSR sekilde gelistirme yapmak icin projei next js ile yeniden olusturacagim
+
+> Yeni repo:https://github.com/earslanyunus/covid-stats-nextjs
 
 ### Yapılacaklar
 
