@@ -3,7 +3,7 @@
 
 > Yeni repo:https://github.com/earslanyunus/covid-stats-nextjs
 
-### Yapılacaklar
+### ~~Yapılacaklar~~
 
 
 - Genel
@@ -36,3 +36,4 @@
     - [x] Toplam doz sayisi
     - [x] Hatirlatma dozu sayisi
 
+~~
